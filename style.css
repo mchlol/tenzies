@@ -72,3 +72,10 @@ main {
 .roll-dice:active {
     box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
+
+.dot {
+    background-color: #0B2434;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+}
