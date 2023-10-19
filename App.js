@@ -10,6 +10,9 @@ export default function App() {
     const [rolls, setRolls] = React.useState(0);
     const [time, setTime] = React.useState(0);
     const [running, setRunning] = React.useState(true);
+    const [fastestTime, setFastestTime] = React.useState(null);
+
+    
 
     
     React.useEffect(() => {
@@ -25,6 +28,17 @@ export default function App() {
     }, [dice])
 
     React.useEffect( () => {
+
+        // set fastest time
+        if (tenzies) {
+            if (fastestTime !== null) {
+            time < fastestTime && setFastestTime(time);
+        } else {
+            setFastestTime(time);
+        }
+        }
+
+        // set timer
         let intervalId = null;
         if (running) {
             intervalId = setInterval( () => {
@@ -34,6 +48,7 @@ export default function App() {
             clearInterval(intervalId);
         }
         return () => clearInterval(intervalId);
+        
 
     },[running, time]);
 
@@ -66,6 +81,7 @@ export default function App() {
             setTenzies(false)
             setRolls(1);
             setDice(allNewDice())
+            setTime(0);
         }
     }
     
@@ -98,6 +114,7 @@ export default function App() {
             
             {tenzies ? <p>You won in {rolls} rolls!</p> : <p>Rolls: {rolls}</p>}
             {tenzies ? <p>Your time: {time} seconds</p> : <p>Time: {time} seconds</p>}
+            {fastestTime ? <p>Fastest time: {fastestTime} seconds</p> : <p>No fastest time set</p>}
 
             <button 
                 className="roll-dice" 
