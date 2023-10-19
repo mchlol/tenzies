@@ -427,7 +427,7 @@ function App() {
         tenzies = _React$useState4[0],
         setTenzies = _React$useState4[1];
 
-    var _React$useState5 = _react2.default.useState(1),
+    var _React$useState5 = _react2.default.useState(0),
         _React$useState6 = _slicedToArray(_React$useState5, 2),
         rolls = _React$useState6[0],
         setRolls = _React$useState6[1];
@@ -441,11 +441,6 @@ function App() {
         _React$useState10 = _slicedToArray(_React$useState9, 2),
         running = _React$useState10[0],
         setRunning = _React$useState10[1];
-
-    var _React$useState11 = _react2.default.useState(0),
-        _React$useState12 = _slicedToArray(_React$useState11, 2),
-        fastestTime = _React$useState12[0],
-        setFastestTime = _React$useState12[1];
 
     _react2.default.useEffect(function () {
         var allHeld = dice.every(function (die) {
@@ -464,7 +459,6 @@ function App() {
     }, [dice]);
 
     _react2.default.useEffect(function () {
-
         var intervalId = null;
         if (running) {
             intervalId = setInterval(function () {
@@ -478,15 +472,6 @@ function App() {
         return function () {
             return clearInterval(intervalId);
         };
-    }, [running, time]);
-
-    _react2.default.useEffect(function () {
-        // when running is false
-        // check the time against the prevFastestTime
-        // if it's higher, setFastestTime
-        if (!running) {
-            time < fastestTime && setFastestTime(time);
-        }
     }, [running, time]);
 
     function generateNewDie() {
@@ -582,12 +567,6 @@ function App() {
             "Time: ",
             time,
             " seconds"
-        ),
-        _react2.default.createElement(
-            "p",
-            null,
-            "Fastest time: ",
-            fastestTime
         ),
         _react2.default.createElement(
             "button",
