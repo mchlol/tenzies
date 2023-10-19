@@ -1,19 +1,24 @@
 import React from "react"
 import Dot from './Dot'
+import { nanoid } from "nanoid";
 
 export default function Die(props) {
     const styles = {
         backgroundColor: props.isHeld ? "#59E391" : "white"
     }
 
-    function renderDots(value) {
-        console.log(value, " dots");
+    const [dieFaces, setDieFaces] = React.useState(props.value);
+
+    React.useEffect( () => {
+
         let arr = [];
-        for (let i = 0; i < value; i++) {
-            arr.push(<Dot />)
+        for (let i = 0; i < props.value; i++) {
+            arr.push(<Dot key={nanoid()}/>)
         }
-        return arr;
-    }
+        return setDieFaces(arr);
+        
+    }, [])
+
 
     return (
         <div 
@@ -21,7 +26,7 @@ export default function Die(props) {
             style={styles}
             onClick={props.holdDice}
         >
-            {renderDots(props.value)}
+            {dieFaces}
         </div>
     )
 }
