@@ -427,6 +427,26 @@ function App() {
         tenzies = _React$useState4[0],
         setTenzies = _React$useState4[1];
 
+    var _React$useState5 = _react2.default.useState(1),
+        _React$useState6 = _slicedToArray(_React$useState5, 2),
+        rolls = _React$useState6[0],
+        setRolls = _React$useState6[1];
+
+    var _React$useState7 = _react2.default.useState(0),
+        _React$useState8 = _slicedToArray(_React$useState7, 2),
+        time = _React$useState8[0],
+        setTime = _React$useState8[1];
+
+    var _React$useState9 = _react2.default.useState(true),
+        _React$useState10 = _slicedToArray(_React$useState9, 2),
+        running = _React$useState10[0],
+        setRunning = _React$useState10[1];
+
+    var _React$useState11 = _react2.default.useState(0),
+        _React$useState12 = _slicedToArray(_React$useState11, 2),
+        fastestTime = _React$useState12[0],
+        setFastestTime = _React$useState12[1];
+
     _react2.default.useEffect(function () {
         var allHeld = dice.every(function (die) {
             return die.isHeld;
@@ -437,8 +457,37 @@ function App() {
         });
         if (allHeld && allSameValue) {
             setTenzies(true);
+            setRunning(false);
+        } else {
+            setRunning(true);
         }
     }, [dice]);
+
+    _react2.default.useEffect(function () {
+
+        var intervalId = null;
+        if (running) {
+            intervalId = setInterval(function () {
+                setTime(function (prevTime) {
+                    return prevTime + 1;
+                });
+            }, 1000);
+        } else {
+            clearInterval(intervalId);
+        }
+        return function () {
+            return clearInterval(intervalId);
+        };
+    }, [running, time]);
+
+    _react2.default.useEffect(function () {
+        // when running is false
+        // check the time against the prevFastestTime
+        // if it's higher, setFastestTime
+        if (!running) {
+            time < fastestTime && setFastestTime(time);
+        }
+    }, [running, time]);
 
     function generateNewDie() {
         return {
@@ -457,6 +506,7 @@ function App() {
     }
 
     function rollDice() {
+        setRolls(rolls + 1);
         if (!tenzies) {
             setDice(function (oldDice) {
                 return oldDice.map(function (die) {
@@ -465,6 +515,7 @@ function App() {
             });
         } else {
             setTenzies(false);
+            setRolls(1);
             setDice(allNewDice());
         }
     }
@@ -506,6 +557,37 @@ function App() {
             "div",
             { className: "dice-container" },
             diceElements
+        ),
+        tenzies ? _react2.default.createElement(
+            "p",
+            null,
+            "You won in ",
+            rolls,
+            " rolls!"
+        ) : _react2.default.createElement(
+            "p",
+            null,
+            "Rolls: ",
+            rolls
+        ),
+        tenzies ? _react2.default.createElement(
+            "p",
+            null,
+            "Your time: ",
+            time,
+            " seconds"
+        ) : _react2.default.createElement(
+            "p",
+            null,
+            "Time: ",
+            time,
+            " seconds"
+        ),
+        _react2.default.createElement(
+            "p",
+            null,
+            "Fastest time: ",
+            fastestTime
         ),
         _react2.default.createElement(
             "button",
@@ -586,6 +668,7 @@ function Die(props) {
     var styles = {
         backgroundColor: props.isHeld ? "#59E391" : "white"
     };
+
     return _react2.default.createElement(
         "div",
         {
