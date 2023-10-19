@@ -641,12 +641,25 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _Dot = __webpack_require__(20);
+
+var _Dot2 = _interopRequireDefault(_Dot);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Die(props) {
     var styles = {
         backgroundColor: props.isHeld ? "#59E391" : "white"
     };
+
+    function renderDots(value) {
+        console.log(value, " dots");
+        var arr = [];
+        for (var i = 0; i < value; i++) {
+            arr.push(_react2.default.createElement(_Dot2.default, null));
+        }
+        return arr;
+    }
 
     return _react2.default.createElement(
         "div",
@@ -655,11 +668,7 @@ function Die(props) {
             style: styles,
             onClick: props.holdDice
         },
-        _react2.default.createElement(
-            "h2",
-            { className: "die-num" },
-            props.value
-        )
+        renderDots(props.value)
     );
 }
 
@@ -30837,6 +30846,28 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = Dot;
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Dot() {
+    return _react2.default.createElement("div", { className: "dot" });
+}
 
 /***/ })
 /******/ ]);
