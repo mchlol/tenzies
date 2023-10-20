@@ -116,11 +116,11 @@ Under the rolls display, I included another ternary to display the timer and the
 
 ### Save your best time to localStorage
 
-This requires setting up a new piece of state - `fastestTime`.
+This requires setting up a new piece of state.  
 `const [fastestTime, setFastestTime] = React.useState(localStorage.getItem('fastestTime') || null);`  
-This checks `localStorage` first to see if it exists there, and if not it is set to null meaning it is intentionally empty, a value has not been set.  
-Then I set up a new `useEffect` using the boolean `tenzies` as a dependency.  
-This first checks if the game is won, if so it checks if the `fastestTime` is null and if so goes ahead and sets the new fastest time.  
+This checks `localStorage` first to see if it exists there, and if not it is set to null meaning it is intentionally empty, a value has not been set. 
+
+Then I set up a new `useEffect` using the boolean `tenzies` as a dependency. This first checks if the game is won, if so it checks if the `fastestTime` is null and if so goes ahead and sets the new fastest time.  
 If `fastestTime` is not null, it will only set the new `fastestTime` if the `time` is actually faster.  
 
 ```
