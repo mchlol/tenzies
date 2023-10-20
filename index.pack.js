@@ -561,10 +561,24 @@ function App() {
         running = _React$useState10[0],
         setRunning = _React$useState10[1];
 
-    var _React$useState11 = _react2.default.useState(null),
+    var _React$useState11 = _react2.default.useState(localStorage.getItem('storedFastestTime') || null),
         _React$useState12 = _slicedToArray(_React$useState11, 2),
         fastestTime = _React$useState12[0],
         setFastestTime = _React$useState12[1];
+
+    _react2.default.useEffect(function () {
+        if (tenzies) {
+            if (fastestTime === null) {
+                setFastestTime(time);
+                localStorage.setItem('storedFastestTime', time);
+            } else {
+                if (time < fastestTime) {
+                    setFastestTime(time);
+                    localStorage.setItem('storedFastestTime', time);
+                }
+            }
+        }
+    }, [tenzies]);
 
     _react2.default.useEffect(function () {
         var allHeld = dice.every(function (die) {
@@ -583,17 +597,6 @@ function App() {
     }, [dice]);
 
     _react2.default.useEffect(function () {
-
-        // set fastest time
-        if (tenzies) {
-            if (fastestTime !== null) {
-                time < fastestTime && setFastestTime(time);
-            } else {
-                setFastestTime(time);
-            }
-        }
-
-        // set timer
         var intervalId = null;
         if (running) {
             intervalId = setInterval(function () {
@@ -635,7 +638,7 @@ function App() {
             });
         } else {
             setTenzies(false);
-            setRolls(1);
+            setRolls(0);
             setDice(allNewDice());
             setTime(0);
         }
