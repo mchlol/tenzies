@@ -109,16 +109,43 @@ React.useEffect( () => {
     },[running, time]);
 ```
 The `useEffect` runs if the `time` variable or the `running` variable have changed. Inside the `useEffect` that checks if the game is won, I set `running` to false to stop the timer.   
-Under the rolls I included another ternary to display the timer and then show the total time when the game is over.  
+Under the rolls display, I included another ternary to display the timer and then show the total time when the game is over.  
 `{tenzies ? <p>Your time: {time} seconds</p> : <p>Time: {time} seconds</p>}`
 
 **Note:** I plan to change this to use [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) instead, so the timer will stop when the browser tab is not active.  
 
+### Save your best time to localStorage
+
+This requires setting up a new piece of state - `fastestTime`.
+`const [fastestTime, setFastestTime] = React.useState(localStorage.getItem('fastestTime') || null);`  
+This checks `localStorage` first to see if it exists there, and if not it is set to null meaning it is intentionally empty, a value has not been set.  
+Then I set up a new `useEffect` using the boolean `tenzies` as a dependency.  
+This first checks if the game is won, if so it checks if the `fastestTime` is null and if so goes ahead and sets the new fastest time.  
+If `fastestTime` is not null, it will only set the new `fastestTime` if the `time` is actually faster.  
+
+```
+    React.useEffect( () => {
+        if (tenzies) {
+            if (fastestTime === null) {
+                setFastestTime(time);
+                localStorage.setItem('storedFastestTime',time);
+            } else {
+                if (time < fastestTime) {
+                    setFastestTime(time);
+                    localStorage.setItem('storedFastestTime',time);
+                } 
+            }
+        } 
+    }, [tenzies]);
+```
+
+When the `fastestTime` is set, it is also set in localStorage so this value can persist between page loads.  
+
+
 ## WIP 
 
-- Working on the final stretch goal - "Save your best time to localStorage"  
 - use `requestAnimationFrame` instead of `setInterval` for the timer
-- polish up the way the timer and rolls are displayed
+- polish up the way the time(s) and rolls are displayed
 
 
 ## Resources
