@@ -1,6 +1,7 @@
 # Tenzies Game
 
-Part of the Frontend Developer Career Path at [Scrimba](https://scrimba.com/learn/frontend).  
+Part of the Frontend Developer Career Path at [Scrimba](https://scrimba.com/learn/frontend). 
+[Live](https://mchlol.github.io/tenzies/) 
 
 ## About
 
