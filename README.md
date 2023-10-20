@@ -114,9 +114,11 @@ Under the rolls I included another ternary to display the timer and then show th
 
 **Note:** I plan to change this to use [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) instead, so the timer will stop when the browser tab is not active.  
 
-### Save your best time to localStorage
+## WIP 
 
-WIP!
+- Working on the final stretch goal - "Save your best time to localStorage"  
+- use `requestAnimationFrame` instead of `setInterval` for the timer
+- polish up the way the timer and rolls are displayed
 
 
 ## Resources
