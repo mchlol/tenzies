@@ -154,3 +154,5 @@ When the `fastestTime` is set, it is also set in localStorage so this value can 
 
 - [Creating dice using CSS grid](https://dev.to/ekeijl/creating-dice-using-css-grid-j4)
 - [Build a React Timer Component Using Hooks](https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks)
+
+
